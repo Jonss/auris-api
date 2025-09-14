@@ -5,6 +5,7 @@ export async function hello(c: Context) {
   const key = c.req.param('key')
   const result = await R2.getObject(c.env.R2, key)
 
+  console.log("key:", key);
   if (!result) return c.json({ error: 'Not Found' }, 404)
 
   const { body, status, headers } = result
