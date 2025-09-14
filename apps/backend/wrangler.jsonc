@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "backend",
+  "main": "src/index.ts",
+  "routes": ["api.bucolico.store/*"],
+  "compatibility_date": "2024-04-09",
+  "keep_vars": true,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "saas_template",
+      "database_id": "c91ae4c4-856d-473e-a7ea-9a16ee76878b"
+    }
+  ],
+}

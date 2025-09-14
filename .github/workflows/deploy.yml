@@ -1,0 +1,44 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main  # Ou a branch que desejar
+
+jobs:
+  deploy:
+    name: Publicar backend Hono no Cloudflare
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/backend
+
+    steps:
+      - name: 🛎️ Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: 📦 Instalar PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 🧰 Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📥 Instalar dependências
+        run: pnpm install
+
+      - name: 🚀 Instalar Wrangler globalmente
+        run: npm install -g wrangler@4
+
+      - name: 🔍 Mostrar versão do Wrangler
+        run: wrangler --version
+
+      - name: 🚀 Fazer deploy no Cloudflare
+        run: wrangler deploy --env production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

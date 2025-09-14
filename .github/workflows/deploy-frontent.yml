@@ -1,0 +1,50 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main  # ou outra branch de produção
+
+jobs:
+  deploy-frontend:
+    name: Deploy frontend to Cloudflare Workers
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/frontend
+
+    steps:
+      - name: 📦 Checkout repositório
+        uses: actions/checkout@v3
+
+      - name: 🔧 Instalar PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 🧰 Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📥 Instalar dependências
+        run: pnpm install
+
+      - name: 🛠️ Build do frontend
+        run: pnpm build
+        env:
+            PUBLIC_API_URL: https://backend-production.joaosantana-ti.workers.dev/
+
+      - name: 🚀 Instalar Wrangler globalmente
+        run: npm install -g wrangler@4
+
+      - name: 🔍 Mostrar versão do Wrangler
+        run: wrangler --version
+
+      - name: 🚀 Deploy com Wrangler (Cloudflare Workers)
+        run: wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
