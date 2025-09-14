@@ -6,7 +6,7 @@ export async function hello(c: Context) {
   const result = await R2.getObject(c.env.R2, key)
 
   console.log("key:", key);
-  if (!result) return c.json({ error: 'Not Found' }, 404)
+  if (!result) return c.json({ error: 'Not Found teste' }, 404)
 
   const { body, status, headers } = result
   return new Response(body, { status, headers })
