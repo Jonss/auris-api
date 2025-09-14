@@ -16,4 +16,10 @@
       "database_id": "c91ae4c4-856d-473e-a7ea-9a16ee76878b"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "R2",                 // como você acessa: c.env.R2
+      "bucket_name": "auris"
+    }
+  ],
 }
