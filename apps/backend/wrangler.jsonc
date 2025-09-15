@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "backend",
+  "name": "auris-api",
   "main": "src/index.ts",
   "routes": ["api.bucolico.store/*"],
   "compatibility_date": "2024-04-09",
