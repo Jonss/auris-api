@@ -21,15 +21,5 @@
       "binding": "R2",                 // como você acessa: c.env.R2
       "bucket_name": "auris"
     }
-  ],
-  "env": {
-    "production": {
-      "r2_buckets": [
-        { "binding": "R2", "bucket_name": "auris" }
-      ],
-      "vars": {
-        "JWT_SECRET": "use-um-segredo-real"
-      }
-    }
-  }
+  ]
 }
